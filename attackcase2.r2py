@@ -1,0 +1,33 @@
+#valid write operation for multiple files
+#if file exists, clean up
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+#if file exists, clean up
+if "test.txt.a" in listfiles():
+  removefile("test.txt.a")
+if "test.txt.b" in listfiles():
+  removefile("test.txt.b")
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+myfile1=ABopenfile("test.txt",True)  #Create an AB file
+
+# put some valid data in the file.
+myfile.writeat("Stest12345E",0)
+myfile1.writeat("Stest1E",0)
+#Close the file
+myfile.close()
+myfile1.close()
+myfile=ABopenfile("testfile.txt",True)  #read
+myfile1=ABopenfile("test.txt",True)  #read
+try:
+# valid write works...
+	assert('Stest12345E' == myfile.readat(None,0))
+	assert('Stest1E' == myfile.readat(None,0))
+	#Close the file
+	myfile.close()
+	myfile1.close()
+except:
+	log("Multiple file writing did not work.")
+	myfile.close()
+	myfile1.close()

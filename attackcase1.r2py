@@ -1,0 +1,22 @@
+#accuracy test- valid write operation
+#if file exists, clean up
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+# put some valid data in the file.
+myfile.writeat("Stest12345E",0)
+#Close the file
+myfile.close()
+myfile=ABopenfile("testfile.txt",True)  #read
+try:
+# valid write works...
+	assert('Stest12345E' == myfile.readat(None,0))
+	#Close the file
+	myfile.close()
+except:
+	#Close the file
+	log("Valid data not written in file. Accuracy test failed.")
+	myfile.close()
+
